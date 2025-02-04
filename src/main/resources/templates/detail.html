@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>detail</title>
+    <style>
+        th, td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>id</th>
+        <td th:text="${board.id}"></td>
+    </tr>
+    <tr>
+        <th>title</th>
+        <td th:text="${board.boardTitle}"></td>
+    </tr>
+    <tr>
+        <th>content</th>
+        <td th:text="${board.boardContent}"></td>
+    </tr>
+    <tr>
+        <th>writer</th>
+        <td th:text="${board.boardWriter}"></td>
+    </tr>
+    <tr>
+        <th>hits</th>
+        <td th:text="${board.boardHits}"></td>
+    </tr>
+    <tr>
+        <th>date</th>
+        <td th:text="${board.createdAt}"></td>
+    </tr>
+</table>
+<button onclick="listReq()">목록</button>
+</body>
+<script th:inline="javascript">
+    const listReq = () => {
+        location.href = "/list";
+    }
+</script>
+</html>
