@@ -81,6 +81,11 @@
         <td th:text="${board.createdAt}"></td>
     </tr>
 </table>
-<a href="/save">글 작성</a>
+<button onclick="saveReq()">글 작성</button>
 </body>
+<script th:inline="javascript">
+    const saveReq =() => {
+        location.href = "/save";
+    }
+</script>
 </html>
