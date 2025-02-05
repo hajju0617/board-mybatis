@@ -25,7 +25,6 @@ public class BoardController {
 
     @PostMapping("/save")
     public String save(BoardDto boardDto) throws IOException {
-        System.out.println("boardDto = " + boardDto);
         boardService.save(boardDto);
         return "redirect:/list";
     }
@@ -34,7 +33,6 @@ public class BoardController {
     public String findAll(Model model) {
         List<BoardDto> boardDtoList = boardService.findAll();
         model.addAttribute("boardList", boardDtoList);
-        System.out.println("boardDtoList = " + boardDtoList);
         return "list";
     }
 
@@ -43,11 +41,9 @@ public class BoardController {
         boardService.updateHits(id);
         BoardDto boardDto = boardService.findById(id);
         model.addAttribute("board", boardDto);
-        System.out.println("boardDto = " + boardDto);
         if (boardDto.getFileAttached() == 1) {
-            BoardFileDto boardFileDto = boardService.findFile(id);
-            model.addAttribute("boardFile", boardFileDto);
-            System.out.println("boardFileDto = " + boardFileDto);
+            List<BoardFileDto> boardFileDtoList = boardService.findFile(id);
+            model.addAttribute("boardFileList", boardFileDtoList);
         }
         return "detail";
     }
@@ -55,7 +51,6 @@ public class BoardController {
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") Long id, Model model) {
         BoardDto boardDto = boardService.findById(id);
-        System.out.println("boardDto = " + boardDto);
         model.addAttribute("board", boardDto);
         return "update";
     }

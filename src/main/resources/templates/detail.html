@@ -20,7 +20,11 @@
         th {
             background-color: #f4f4f4; /* 제목 셀 배경색 */
         }
-
+        .image-container {
+            display: flex;
+            gap: 10px; /* 이미지 간 간격 */
+            flex-wrap: wrap; /* 이미지가 테이블 너비에 맞춰 자동으로 줄바꿈 */
+        }
     </style>
 </head>
 <body>
@@ -51,7 +55,11 @@
     </tr>
     <tr th:if="${board.fileAttached == 1}">
         <th>이미지</th>
-        <td><img th:src="@{|/upload/${boardFile.storedFileName}|}" alt="" width="200" height="200"></td>
+        <td>
+            <div class="image-container" th:each="boardFile : ${boardFileList}">
+                <img th:src="@{|/upload/${boardFile.storedFileName}|}" alt="" width="200" height="200">
+            </div>
+        </td>
     </tr>
 </table>
 <button onclick="listReq()">목록</button>

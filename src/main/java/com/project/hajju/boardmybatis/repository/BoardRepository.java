@@ -44,7 +44,7 @@ public class BoardRepository {
         sql.insert("board.saveFile", boardFileDto);
     }
 
-    public BoardFileDto findFile(Long id) {
-        return sql.selectOne("board.findFile", id);
+    public List<BoardFileDto> findFile(Long id) {
+        return sql.selectList("board.findFile", id);
     }
 }

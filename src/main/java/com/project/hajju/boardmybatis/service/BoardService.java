@@ -19,22 +19,23 @@ public class BoardService {
     private final FileUtils fileUtils;
 
     public void save(BoardDto boardDto) throws IOException {
-        if (boardDto.getBoardFile().isEmpty()) {
+        if (boardDto.getBoardFile().get(0).isEmpty()) {
+            // 0번 인덱스가 비었는 지.
             boardRepository.save(boardDto);
         } else {
             boardDto.setFileAttached(1);
             BoardDto savedBoard = boardRepository.save(boardDto);
-            MultipartFile boardFile = savedBoard.getBoardFile();
+            for (MultipartFile boardFile : savedBoard.getBoardFile()) {
 
-            String originalFileName = boardFile.getOriginalFilename();
-            String storedFileName = fileUtils.getStoredFileName(originalFileName);
-            BoardFileDto boardFileDto = BoardFileDto.createBoardFileDto(savedBoard, originalFileName, storedFileName);
+                String originalFileName = boardFile.getOriginalFilename();
+                String storedFileName = fileUtils.getStoredFileName(originalFileName);
+                BoardFileDto boardFileDto = BoardFileDto.createBoardFileDto(savedBoard, originalFileName, storedFileName);
 
-            // 디렉토리에 파일 저장.
-            boardFile.transferTo(new File(fileUtils.savePath(storedFileName)));
-            // DB에 저장.
-            boardRepository.saveFile(boardFileDto);
-
+                // 디렉토리에 파일 저장.
+                boardFile.transferTo(new File(fileUtils.savePath(storedFileName)));
+                // DB에 저장.
+                boardRepository.saveFile(boardFileDto);
+            }
         }
 
     }
@@ -59,7 +60,7 @@ public class BoardService {
         boardRepository.delete(id);
     }
 
-    public BoardFileDto findFile(Long id) {
+    public List<BoardFileDto> findFile(Long id) {
         return boardRepository.findFile(id);
     }
 }
