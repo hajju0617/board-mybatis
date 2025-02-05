@@ -7,8 +7,58 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>list</title>
     <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
         th, td {
             padding: 10px;
+            border: 1px solid #ddd; /* 테이블 구분선 */
+            text-align: center; /* 내용 가운데 정렬 */
+        }
+
+        th {
+            background-color: #f4f4f4; /* 제목 셀 배경색 */
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* 짝수 행 배경색 */
+        }
+
+        tr:hover {
+            background-color: #f1f1f1; /* 마우스 오버 시 배경색 */
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        a:hover {
+            color: #007BFF; /* 링크 hover 시 색상 변경 */
+        }
+
+        .table-container {
+            width: 80%;
+            margin: 0 auto; /* 테이블을 가운데로 */
+            padding: 20px;
+        }
+
+        .btn-create {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .btn-create:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>

@@ -27,4 +27,12 @@ public class BoardService {
     public BoardDto findById(Long id) {
         return boardRepository.findById(id);
     }
+
+    public void update(BoardDto boardDto) {
+        boardRepository.update(boardDto);
+    }
+
+    public void delete(Long id) {
+        boardRepository.delete(id);
+    }
 }

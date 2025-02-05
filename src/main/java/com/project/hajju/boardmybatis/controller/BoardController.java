@@ -25,7 +25,7 @@ public class BoardController {
     public String save(BoardDto boardDto) {
         System.out.println("boardDto = " + boardDto);
         boardService.save(boardDto);
-        return "main";
+        return "redirect:/list";
     }
 
     @GetMapping("/list")
@@ -43,5 +43,27 @@ public class BoardController {
         model.addAttribute("board", boardDto);
         System.out.println("boardDto = " + boardDto);
         return "detail";
+    }
+
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable("id") Long id, Model model) {
+        BoardDto boardDto = boardService.findById(id);
+        System.out.println("boardDto = " + boardDto);
+        model.addAttribute("board", boardDto);
+        return "update";
+    }
+
+    @PostMapping("/update/{id}")
+    public String update(BoardDto boardDto, Model model) {
+        boardService.update(boardDto);
+        BoardDto dto = boardService.findById(boardDto.getId());
+        model.addAttribute("board", dto);
+        return "detail";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        boardService.delete(id);
+        return "redirect:/list";
     }
 }

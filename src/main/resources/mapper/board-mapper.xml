@@ -3,6 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
+    <!--  parameterType : SQL쿼리에 전달되는 입력 파라미터의 타입을 지정  -->
+    <!--  resultType :  SQL 실행 후 반환되는 출력 결과의 타입을 정의 -->
     <insert id="save" parameterType="board">
         INSERT INTO board_table(boardTitle, boardContent, boardWriter, boardPassword)
         VALUES (#{boardTitle}, #{boardContent}, #{boardWriter}, #{boardPassword})
@@ -20,9 +22,18 @@
     </update>
 
     <select id="findById" parameterType="Long" resultType="board">
-        SELECT id, boardTitle, boardContent, boardWriter, boardHits
+        SELECT id, boardTitle, boardContent, boardWriter, boardHits, boardPassword
              , date_format(createdAt, "%Y-%m-%d %H:%i:%s") as createdAt
         FROM board_table WHERE id = #{id}
     </select>
+
+    <update id="update" parameterType="board">
+        UPDATE board_table SET boardTitle = #{boardTitle}, boardContent = #{boardContent}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM board_table WHERE id = #{id}
+    </delete>
 
 </mapper>

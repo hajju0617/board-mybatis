@@ -29,4 +29,12 @@ public class BoardRepository {
     public BoardDto findById(Long id) {
         return sql.selectOne("board.findById", id);
     }
+
+    public void update(BoardDto boardDto) {
+        sql.update("board.update", boardDto);
+    }
+
+    public void delete(Long id) {
+        sql.delete("board.delete", id);
+    }
 }

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>update</title>
+</head>
+<body>
+<form th:action="@{|/update/${board.id}|}" method="post" name="updateForm">
+    <input type="hidden" name="id" th:value="${board.id}">
+    작성자: <input type="text" name="boardWriter" th:value="${board.boardWriter}" readonly><br>
+    제목: <input type="text" name="boardTitle" th:value="${board.boardTitle}"><br>
+    내용: <textarea name="boardContent" cols="30" rows="10" th:text="${board.boardContent}"></textarea><br>
+    비밀번호: <input type="password" name="boardPassword" id="board-password"><br>
+    <input type="button" value="수정" onclick="board_update()">
+</form>
+</body>
+<script th:inline="javascript">
+    const board_update = () => {
+        const boardPassword = document.getElementById("board-password").value;
+        const savePassword = [[${board.boardPassword}]];
+        if (boardPassword === savePassword) {
+            updateForm.submit();
+        } else {
+            alert("비밀번호가 틀렸음!");
+        }
+    }
+</script>
+</html>
