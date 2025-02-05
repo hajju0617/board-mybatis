@@ -1,6 +1,7 @@
 package com.project.hajju.boardmybatis.repository;
 
 import com.project.hajju.boardmybatis.dto.BoardDto;
+import com.project.hajju.boardmybatis.dto.BoardFileDto;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,9 +14,10 @@ public class BoardRepository {
     // myBatis에서 제공하는 SqlSessionTemplate 클래스.
     private final SqlSessionTemplate sql;
 
-    public void save(BoardDto boardDto) {
+    public BoardDto save(BoardDto boardDto) {
         // 여기서 board는 board-mapper의 namespace, save는 id를 뜻함. boardDto는 인자.
         sql.insert("board.save", boardDto);
+        return boardDto;
     }
 
     public List<BoardDto> findAll() {
@@ -36,5 +38,13 @@ public class BoardRepository {
 
     public void delete(Long id) {
         sql.delete("board.delete", id);
+    }
+
+    public void saveFile(BoardFileDto boardFileDto) {
+        sql.insert("board.saveFile", boardFileDto);
+    }
+
+    public BoardFileDto findFile(Long id) {
+        return sql.selectOne("board.findFile", id);
     }
 }

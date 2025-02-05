@@ -5,9 +5,10 @@
 <mapper namespace="board">
     <!--  parameterType : SQL쿼리에 전달되는 입력 파라미터의 타입을 지정  -->
     <!--  resultType :  SQL 실행 후 반환되는 출력 결과의 타입을 정의 -->
-    <insert id="save" parameterType="board">
-        INSERT INTO board_table(boardTitle, boardContent, boardWriter, boardPassword)
-        VALUES (#{boardTitle}, #{boardContent}, #{boardWriter}, #{boardPassword})
+    <!--  useGeneratedKeys="true" keyProperty="id" : INSERT 후 PK값 받기 위해서.  -->
+    <insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO board_table(boardTitle, boardContent, boardWriter, boardPassword, fileAttached)
+        VALUES (#{boardTitle}, #{boardContent}, #{boardWriter}, #{boardPassword}, #{fileAttached})
     </insert>
 
     <!--  select때 resultType은 반드시 있어야하고 parameterType은 있거나 없거나.  -->
@@ -23,7 +24,7 @@
 
     <select id="findById" parameterType="Long" resultType="board">
         SELECT id, boardTitle, boardContent, boardWriter, boardHits, boardPassword
-             , date_format(createdAt, "%Y-%m-%d %H:%i:%s") as createdAt
+             , date_format(createdAt, "%Y-%m-%d %H:%i:%s") as createdAt, fileAttached
         FROM board_table WHERE id = #{id}
     </select>
 
@@ -35,5 +36,14 @@
     <delete id="delete" parameterType="Long">
         DELETE FROM board_table WHERE id = #{id}
     </delete>
+
+    <insert id="saveFile" parameterType="boardFile">
+        INSERT INTO board_file_table(originalFileName, storedFileName, boardId)
+        VALUES (#{originalFileName}, #{storedFileName}, #{boardId})
+    </insert>
+
+    <select id="findFile" parameterType="Long" resultType="boardFile">
+        SELECT * FROM board_file_table WHERE boardId = #{id}
+    </select>
 
 </mapper>

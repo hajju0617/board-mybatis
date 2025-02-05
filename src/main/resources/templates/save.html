@@ -8,10 +8,11 @@
     <title>save</title>
 </head>
 <body>
-<form action="/save" method="post">
+<form action="/save" method="post" enctype="multipart/form-data">
     제목: <input type="text" name="boardTitle"> <br>
     내용: <textarea name="boardContent" cols="30" rows="10"></textarea> <br>
     작성자: <input type="text" name="boardWriter"> <br>
+    파일: <input type="file" name="boardFile"> <br>
     비밀번호: <input type="password" name="boardPassword"> <br>
     <input type="submit" value="작성">
 </form>

@@ -49,6 +49,10 @@
         <th>date</th>
         <td th:text="${board.createdAt}"></td>
     </tr>
+    <tr th:if="${board.fileAttached == 1}">
+        <th>이미지</th>
+        <td><img th:src="@{|/upload/${boardFile.storedFileName}|}" alt="" width="200" height="200"></td>
+    </tr>
 </table>
 <button onclick="listReq()">목록</button>
 <button onclick="updateReq()">수정</button>
